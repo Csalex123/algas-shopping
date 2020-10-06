@@ -7,13 +7,15 @@ import { GlobalStyle, Wrapper, Container } from './App.styles';
 
 const App = () => {
   const [lettuce, setLettuce] = useState(false);
-  const [percent, setPercent] = useState(20);
+  const [percent, setPercent] = useState(0);
 
   useEffect(() => {
-    setTimeout(() => {
-      setPercent(percent + 20);
-    }, 2000);
-  }, []);
+    if (percent !== 100) {
+      setTimeout(() => {
+        setPercent(percent + 1);
+      }, 100);
+    }
+  }, [percent]);
 
   return (
     <>
