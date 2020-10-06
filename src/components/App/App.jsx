@@ -1,8 +1,15 @@
 import React from 'react';
-import { Wrapper } from './App.styles';
+import { GlobalStyle, Wrapper, Container } from './App.styles';
 
 const App = () => {
-  return <Wrapper>Teste</Wrapper>;
+  return (
+    <>
+      <GlobalStyle />
+      <Wrapper>
+        <Container>Teste</Container>
+      </Wrapper>
+    </>
+  );
 };
 
 export default App;
