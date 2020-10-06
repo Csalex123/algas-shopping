@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Checkbox from '../../shared/Checkbox/Checkbox';
 import AppContainer from '../AppContainer/AppContainer';
 import AppHeader from '../AppHeader/AppHeader';
 import { GlobalStyle, Wrapper, Container } from './App.styles';
 
 const App = () => {
+  const [lettuce, setLettuce] = useState(false);
+
   return (
     <>
       <GlobalStyle />
@@ -12,14 +15,14 @@ const App = () => {
           <AppHeader />
           <AppContainer
             left={
-              <div style={{ backgroundColor: 'red' }}>Produtos disponíveis</div>
+              <Checkbox
+                value={lettuce}
+                title={'Batata'}
+                onClick={() => setLettuce(!lettuce)}
+              />
             }
-            middle={
-              <div style={{ backgroundColor: 'green' }}>
-                Sua lista de compras
-              </div>
-            }
-            right={<div style={{ backgroundColor: 'blue' }}>Estatisticas</div>}
+            middle={<div>Sua lista de compras</div>}
+            right={<div>Estatisticas</div>}
           />
         </Container>
       </Wrapper>
