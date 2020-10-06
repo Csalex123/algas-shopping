@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Checkbox from '../../shared/Checkbox/Checkbox';
+import LineChart from '../../shared/LineChart/LineChart';
 import AppContainer from '../AppContainer/AppContainer';
 import AppHeader from '../AppHeader/AppHeader';
 import { GlobalStyle, Wrapper, Container } from './App.styles';
 
 const App = () => {
   const [lettuce, setLettuce] = useState(false);
+  const [percent, setPercent] = useState(20);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setPercent(percent + 20);
+    }, 2000);
+  }, []);
 
   return (
     <>
@@ -15,14 +23,32 @@ const App = () => {
           <AppHeader />
           <AppContainer
             left={
-              <Checkbox
-                value={lettuce}
-                title={'Batata'}
-                onClick={() => setLettuce(!lettuce)}
-              />
+              <div>
+                <p>Produtos disponíveis: </p>
+                <Checkbox
+                  value={lettuce}
+                  title={'Batata'}
+                  onClick={() => setLettuce(!lettuce)}
+                />
+              </div>
             }
-            middle={<div>Sua lista de compras</div>}
-            right={<div>Estatisticas</div>}
+            middle={
+              <div>
+                <p>Sua lista de compras</p>
+              </div>
+            }
+            right={
+              <div>
+                <p>Estatisticas</p>
+                <LineChart color="#09f" title="saudavel" percentage={percent} />
+                <LineChart
+                  color="red"
+                  title="Não saudável"
+                  percentage={percent}
+                />
+                <LineChart color="" title="saudavel" percentage={percent} />
+              </div>
+            }
           />
         </Container>
       </Wrapper>
