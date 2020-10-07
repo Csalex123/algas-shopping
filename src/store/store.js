@@ -8,6 +8,12 @@ const rootReducer = combineReducers({
     products: productsReducer,
 });
 
-const store = createStore(rootReducer);
+const persistedReducer = persistReducer({
+    key: 'products',
+    storage
+}, rootReducer);
 
-export default store;
+const store = createStore(persistedReducer);
+const persistedStore = persistStore(store);
+
+export { store, persistedStore };
