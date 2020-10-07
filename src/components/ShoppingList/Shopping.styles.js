@@ -13,7 +13,8 @@ export const Title = styled.h2`
 `;
 
 export const Array = styled.div`
-    height: 355px;
+    height: 345px;
+    margin-top: 10px;
 
     overflow-y: auto;
 `;
