@@ -1,6 +1,7 @@
 import React from 'react';
-import { List, Title, Array } from './Shopping.styles';
+
 import CheckBox from '../../shared/Checkbox';
+import { List, Title, Array } from './Shopping.styles';
 
 const ShoppingList = ({ title, products, onToggle }) => {
   return (
@@ -8,12 +9,12 @@ const ShoppingList = ({ title, products, onToggle }) => {
       <Title>
         {title}:
         <Array>
-          {products.map( product => (
-            <CheckBox 
-                key={product.id}
-                value={product.checked} 
-                title={product.name} 
-                onClick={() => onToggle(product.id)}
+          {products.map((product) => (
+            <CheckBox
+              key={product.id}
+              value={product.checked}
+              title={product.name}
+              onClick={() => onToggle(product.id)}
             />
           ))}
         </Array>

@@ -1,40 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { GlobalStyle, Wrapper, Container } from './App.styles';
 
 import LineChart from '../../shared/LineChart/LineChart';
+
 import AppContainer from '../AppContainer/AppContainer';
 import AppHeader from '../AppHeader/AppHeader';
 import ShoppingList from '../ShoppingList/ShoppingList';
-import productsMock from '../../mocks/products.json';
-import { GlobalStyle, Wrapper, Container } from './App.styles';
+
+import extractPercentage from '../../utils/extractPercentage';
+
+import {
+  selectAllProducts,
+  selectSelectedProducts,
+  selectSelectedProductTotalPrice,
+} from '../../store/Products/Products.selectors';
+import { toggleProduct } from '../../store/Products/Products.actions';
 
 const App = () => {
-  const [products, setProducts] = useState(productsMock.products);
-  const [selectedProducts, setSelectedProducts] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+  const dispatch = useDispatch();
+  const products = useSelector(selectAllProducts);
+  const selectedProducts = useSelector(selectSelectedProducts);
+  const totalPrice = useSelector(selectSelectedProductTotalPrice);
 
   const handleToggle = (id) => {
-    const newProducts = products.map((product) => {
-      return product.id === id
-        ? { ...product, checked: !product.checked }
-        : product;
-    });
-
-    setProducts(newProducts);
+    dispatch(toggleProduct(id));
   };
 
   useEffect(() => {
-    const newSelectedProducts = products.filter((product) => product.checked);
-    setSelectedProducts(newSelectedProducts);
+    console.log(selectedProducts);
   }, [products]);
-
-  useEffect(() => {
-    const total = selectedProducts.map((product) => product.price);
-    const newTotal = total.reduce((newPrice, item) => {
-      return (newPrice += item);
-    }, 0);
-
-    setTotalPrice(newTotal);
-  }, [selectedProducts]);
 
   return (
     <>
@@ -64,7 +59,7 @@ const App = () => {
                 <p>Estatísticas</p>
 
                 <LineChart
-                  color="#09f"
+                  color="#62CBC6"
                   title="saudavel"
                   percentage={extractPercentage(
                     selectedProducts.length,
@@ -74,7 +69,7 @@ const App = () => {
                   )}
                 />
                 <LineChart
-                  color="red"
+                  color="#00858C"
                   title="Não tão saudável"
                   percentage={extractPercentage(
                     selectedProducts.length,
@@ -86,7 +81,7 @@ const App = () => {
                   )}
                 />
                 <LineChart
-                  color=""
+                  color="#006073"
                   title="limpeza ou higiene"
                   percentage={extractPercentage(
                     selectedProducts.length,
@@ -98,7 +93,7 @@ const App = () => {
                   )}
                 />
                 <LineChart
-                  color="black"
+                  color="#004D61"
                   title="outros"
                   percentage={extractPercentage(
                     selectedProducts.length,
