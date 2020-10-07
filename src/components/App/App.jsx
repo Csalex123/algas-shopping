@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import Checkbox from '../../shared/Checkbox/Checkbox';
+import React, { useState } from 'react';
+
 import LineChart from '../../shared/LineChart/LineChart';
 import AppContainer from '../AppContainer/AppContainer';
 import AppHeader from '../AppHeader/AppHeader';
+import ShoppingList from '../ShoppingList/ShoppingList';
+import productsMock from '../../mocks/products.json';
 import { GlobalStyle, Wrapper, Container } from './App.styles';
 
 const App = () => {
-  const [lettuce, setLettuce] = useState(false);
-  const [percent, setPercent] = useState(0);
-
-  useEffect(() => {
-    if (percent !== 100) {
-      setTimeout(() => {
-        setPercent(percent + 1);
-      }, 100);
-    }
-  }, [percent]);
+  const [products, setProducts] = useState(productsMock.products);
 
   return (
     <>
@@ -25,30 +18,35 @@ const App = () => {
           <AppHeader />
           <AppContainer
             left={
-              <div>
-                <p>Produtos disponíveis: </p>
-                <Checkbox
-                  value={lettuce}
-                  title={'Batata'}
-                  onClick={() => setLettuce(!lettuce)}
-                />
-              </div>
+              <ShoppingList 
+                title="Produtos disponíveis" 
+                products={products}
+              />
             }
             middle={
-              <div>
-                <p>Sua lista de compras</p>
-              </div>
-            }
+            <ShoppingList 
+              title="Sua lista de compras" 
+              products={products}
+            />
+          }
             right={
               <div>
                 <p>Estatisticas</p>
-                <LineChart color="#09f" title="saudavel" percentage={percent} />
+                <LineChart 
+                  color="#09f" 
+                  title="saudavel" 
+                  percentage={10} 
+                />
                 <LineChart
                   color="red"
                   title="Não saudável"
-                  percentage={percent}
+                  percentage={10}
                 />
-                <LineChart color="" title="saudavel" percentage={percent} />
+                <LineChart 
+                  color="" 
+                  title="saudavel" 
+                  percentage={10} 
+                />
               </div>
             }
           />
