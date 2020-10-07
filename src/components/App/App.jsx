@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { GlobalStyle, Wrapper, Container } from './App.styles';
 
@@ -11,7 +11,7 @@ import ShoppingList from '../ShoppingList/ShoppingList';
 import extractPercentage from '../../utils/extractPercentage';
 
 import {
-  selectAllProducts,
+  // selectAllProducts,
   selectSelectedProducts,
   selectSelectedProductTotalPrice,
 } from '../../store/Products/Products.selectors';
@@ -19,17 +19,13 @@ import { toggleProduct } from '../../store/Products/Products.actions';
 
 const App = () => {
   const dispatch = useDispatch();
-  const products = useSelector(selectAllProducts);
+  // const products = useSelector(selectAllProducts);
   const selectedProducts = useSelector(selectSelectedProducts);
   const totalPrice = useSelector(selectSelectedProductTotalPrice);
 
   const handleToggle = (id) => {
     dispatch(toggleProduct(id));
   };
-
-  useEffect(() => {
-    console.log(selectedProducts);
-  }, [products]);
 
   return (
     <>
@@ -41,7 +37,6 @@ const App = () => {
             left={
               <ShoppingList
                 title="Produtos disponíveis"
-                products={products}
                 onToggle={handleToggle}
               />
             }
@@ -49,7 +44,7 @@ const App = () => {
               selectedProducts && (
                 <ShoppingList
                   title="Sua lista de compras"
-                  products={selectedProducts}
+                  selected
                   onToggle={handleToggle}
                 />
               )
